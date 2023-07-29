@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Profiles Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .profile-link-button {
+            padding: 5px 20px; /* You can adjust this padding if needed */
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .username {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Instagram Profiles Comparison</h1>
+    <form method="post" enctype="multipart/form-data">
+        <label for="followers_file">Followers HTML File:</label>
+        <input type="file" name="followers_file" id="followers_file" accept=".html"><br>
+
+        <label for="followings_file">Followings HTML File:</label>
+        <input type="file" name="followings_file" id="followings_file" accept=".html"><br>
+
+        <input type="submit" value="Compare">
+    </form>
+
+    {% if not_in_followers %}
+        <h2>Profiles not in followers but present in followings:</h2>
+        <p>Total accounts: {{ count_not_in_followers }}</p>
+        <ul>
+            {% for profile in not_in_followers %}
+                <li>
+                    <div class="profile-link-button">
+                        <span class="username">{{ profile.split('/')[-2] }}</span>
+                        <a href="{{ profile }}" target="_blank" onclick="changeColor(this)">Open Link</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script>
+        function changeColor(button) {
+            button.classList.add('clicked');
+        }
+    </script>
+</body>
+</html>
